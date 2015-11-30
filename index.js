@@ -37,13 +37,8 @@ function usagePercent(opts, cb) {
     opts.sampleMs = opts.sampleMs || 1000;
   }
 
-  //check if core exists
-  if (opts.coreIndex >= cpus.length || opts.coreIndex < -1) {
-    _error(opts.coreIndex, cpus.length);
-    return cb('coreIndex out of bounds');
-  }
   //check core exists
-  if (opts.coreIndex < 0 ||
+  if (opts.coreIndex <= -1 ||
       opts.coreIndex >= cpus.length ||
       typeof opts.coreIndex !== 'number'
   ) {
