@@ -12,11 +12,13 @@ module.exports = {
 function usagePercent(opts, cb) {
   var cpus = os.cpus();
 
-  var timeTotalDelta0 = 0;
-  var timeTotalDelta1 = 0;
+  var timeUsed;
+  var timeUsed0 = 0;
+  var timeUsed1 = 0;
 
-  var timeIdleDelta0 = 0;
-  var timeIdleDelta1 = 0;
+  var timeIdle = 0;
+  var timeIdle0 = 0;
+  var timeIdle1 = 0;
 
   var cpuDelta1;
   var cpuDelta0;
@@ -54,26 +56,25 @@ function usagePercent(opts, cb) {
 
       //do the number crunching below and return
       for (var i = 0; i < cpuDelta1.length; i++) {
-        timeTotalDelta1 += cpuDelta1[i].times.user;
-        timeTotalDelta1 += cpuDelta1[i].times.nice;
-        timeTotalDelta1 += cpuDelta1[i].times.sys;
-        timeIdleDelta1 += cpuDelta1[i].times.idle;
+        timeUsed1 += cpuDelta1[i].times.user;
+        timeUsed1 += cpuDelta1[i].times.nice;
+        timeUsed1 += cpuDelta1[i].times.sys;
+        timeIdle1 += cpuDelta1[i].times.idle;
       }
 
       for (i = 0; i < cpuDelta0.length; i++) {
-        timeTotalDelta0 += cpuDelta0[i].times.user;
-        timeTotalDelta0 += cpuDelta0[i].times.nice;
-        timeTotalDelta0 += cpuDelta0[i].times.sys;
-        timeIdleDelta0 += cpuDelta0[i].times.idle;
+        timeUsed0 += cpuDelta0[i].times.user;
+        timeUsed0 += cpuDelta0[i].times.nice;
+        timeUsed0 += cpuDelta0[i].times.sys;
+        timeIdle0 += cpuDelta0[i].times.idle;
       }
 
-      var timeTotalDelta = timeTotalDelta1 - timeTotalDelta0;
-      var timeIdleDelta = timeIdleDelta1 - timeIdleDelta0;
+      timeUsed = timeUsed1 - timeUsed0;
+      timeIdle = timeIdle1 - timeIdle0;
 
-      var percentPerSecond =
-        ((timeTotalDelta / timeIdleDelta) / (diffSeconds * diffSeconds)) * 100;
+      var percent = (timeUsed / (timeUsed + timeIdle)) * 100;
 
-      cb(percentPerSecond);
+      cb(percent, diffSeconds);
     }, opts.sampleMs);
 
   //only one cpu core
@@ -87,23 +88,22 @@ function usagePercent(opts, cb) {
       var diff = process.hrtime(time);
       var diffSeconds = diff[0] + diff[1] * 1e-9;
 
-      timeTotalDelta1 += cpuDelta1[opts.coreIndex].times.user;
-      timeTotalDelta1 += cpuDelta1[opts.coreIndex].times.nice;
-      timeTotalDelta1 += cpuDelta1[opts.coreIndex].times.sys;
-      timeIdleDelta1 += cpuDelta1[opts.coreIndex].times.idle;
+      timeUsed1 += cpuDelta1[opts.coreIndex].times.user;
+      timeUsed1 += cpuDelta1[opts.coreIndex].times.nice;
+      timeUsed1 += cpuDelta1[opts.coreIndex].times.sys;
+      timeIdle1 += cpuDelta1[opts.coreIndex].times.idle;
 
-      timeTotalDelta0 += cpuDelta0[opts.coreIndex].times.user;
-      timeTotalDelta0 += cpuDelta0[opts.coreIndex].times.nice;
-      timeTotalDelta0 += cpuDelta0[opts.coreIndex].times.sys;
-      timeIdleDelta0 += cpuDelta0[opts.coreIndex].times.idle;
+      timeUsed0 += cpuDelta0[opts.coreIndex].times.user;
+      timeUsed0 += cpuDelta0[opts.coreIndex].times.nice;
+      timeUsed0 += cpuDelta0[opts.coreIndex].times.sys;
+      timeIdle0 += cpuDelta0[opts.coreIndex].times.idle;
 
-      var timeTotalDelta = timeTotalDelta1 - timeTotalDelta0;
-      var timeIdleDelta = timeIdleDelta1 - timeIdleDelta0;
+      var timeUsed = timeUsed1 - timeUsed0;
+      var timeIdle = timeIdle1 - timeIdle0;
 
-      var percentPerSecond =
-        ((timeTotalDelta / timeIdleDelta) / (diffSeconds * diffSeconds)) * 100;
+      var percent = (timeUsed / (timeUsed + timeIdle)) * 100;
 
-      cb(percentPerSecond);
+      cb(percent, diffSeconds);
     }, opts.sampleMs);
 
   }
