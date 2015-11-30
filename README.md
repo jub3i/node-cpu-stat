@@ -13,7 +13,7 @@ cpu-stat
 
 **Note:** This repo can be found on npm here: [cpu-stat](https://www.npmjs.com/package/cpu-stat)
 
-**Note:** This module only relies on the `os` module, so it should be cross compatible on all OS's where Node.js runs.
+**Note:** This module only relies on the `os` module, so it should be compatible on all OS's where Node.js runs.
 
 Install
 -------
@@ -103,10 +103,13 @@ Areas ripe for contribution:
 Other Stat Modules
 ------------------
 
-- [cpu-stat](https://www.npmjs.com/package/cpu-stat)
-- [net-stat](https://www.npmjs.com/package/net-stat)
-- [disk-stat](https://www.npmjs.com/package/disk-stat)
-- [mem-stat](https://www.npmjs.com/package/mem-stat)
+
+- cpu-stat [(npm)](https://www.npmjs.com/package/cpu-stat) [(git)](https://github.com/jub3i/node-cpu-stat)
+- net-stat [(npm)](https://www.npmjs.com/package/net-stat) [(git)](https://github.com/jub3i/node-net-stat)
+- disk-stat [(npm)](https://www.npmjs.com/package/disk-stat) [(git)](https://github.com/jub3i/node-disk-stat)
+- mem-stat [(npm)](https://www.npmjs.com/package/mem-stat) [(git)](https://github.com/jub3i/node-mem-stat)
+
+**Note:** net-stat, disk-stat, mem-stat only work on nix platforms with a `/proc` file system.
 
 License
 -------
