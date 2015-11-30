@@ -28,9 +28,13 @@ Example
 ```
 var cpuStat = require('cpu-stat');
 
-//by default returns average cpu usage percent over all cores
-cpuStat.usagePercent(function(percent) {
+//by default returns cpu usage over all cores over a period of the next 1000ms
+cpuStat.usagePercent(function(percent, seconds) {
+    //the percentage cpu usage over all cores
     console.log(percent);
+
+    //the approximate number of seconds the sample was taken over
+    console.log(seconds);
 });
 
 //get the average cpu usage percent for core 0 over a sample period of 2000ms
@@ -38,8 +42,12 @@ cpuStat.usagePercent({
     coreIndex: 0,
     sampleMs: 2000,
   },
-  function(coreZeroPercent) {
-    console.log(coreZeroPercent);
+  function(percent, seconds) {
+    //the percentage cpu usage for core 0
+    console.log(percent);
+
+    //the approximate number of seconds the sample was taken over
+    console.log(seconds);
 });
 
 //get the total number of cores
@@ -58,14 +66,14 @@ console.log(avgClockMhzCore2);
 usagePercent(opts, cb)
 ----------------------
 
-Returns an integer representing the number of `units` received on `iface`.
+Provides a callback `cb(percent, seconds)` giving the `percent` cpu usage and `seconds` the length of the sample time
 
 Option               | Type         | Default            | Explanation
 -------------------- | -------------| ------------------ | ------------
 opts                 | `Object`     | see below          | Options object, specify what you need the defaults will be filled in
 opts.coreIndex       | `Number`     | all cores          | The index of the core to calculate the usage on. Can use any `coreIndex` such that `0 >= coreIndex < memStat.totalCores()`
 opts.sampleMs        | `String`     | `1000`             | `sampleMs` is the amount of time to take the measurement over
-cb                   | `Function`   | none               | Callback which has signature `cb(percent)`
+cb                   | `Function`   | none               | Callback which has signature `cb(percent, seconds)`
 
 totalCores()
 ------------
@@ -91,6 +99,14 @@ Areas ripe for contribution:
 - testing
 - performance
 - bugs
+
+Other Stat Modules
+------------------
+
+- [cpu-stat](https://www.npmjs.com/package/cpu-stat)
+- [net-stat](https://www.npmjs.com/package/net-stat)
+- [disk-stat](https://www.npmjs.com/package/disk-stat)
+- [mem-stat](https://www.npmjs.com/package/mem-stat)
 
 License
 -------
