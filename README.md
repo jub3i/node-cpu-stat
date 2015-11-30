@@ -24,14 +24,15 @@ Install
 npm install cpu-stat
 ```
 
-Example
--------
+Examples
+--------
 
+Require the module:
 ```
 var cpuStat = require('cpu-stat');
 ```
 
-By default returns cpu usage percent for all cores over a period of the next 1000ms
+By default `usagePercent` returns cpu usage percent for all cores over a period of the next 1000ms:
 ```
 cpuStat.usagePercent(function(err, percent, seconds) {
     if (err) {
@@ -46,7 +47,7 @@ cpuStat.usagePercent(function(err, percent, seconds) {
 });
 ```
 
-Get the cpu usage percent for core 0 over a sample period of 2000ms
+Get the cpu usage percent for core 0 over a sample period of 2000ms:
 ```
 cpuStat.usagePercent({
     coreIndex: 0,
@@ -60,24 +61,24 @@ cpuStat.usagePercent({
     //the percentage cpu usage for core 0
     console.log(percent);
 
-    //the approximate number of seconds the sample was taken over
+    //the approximate number of seconds the sample was taken over (~2 seconds)
     console.log(seconds);
 });
 ```
 
-Get the total number of cores
+Get the total number of cores:
 ```
 var totalCores = cpuStat.totalCores();
 console.log(totalCores);
 ```
 
-Get the average clock MHz over all cores
+Get the average clock MHz over all cores:
 ```
 var avgClockMHz = cpuStat.avgClockMHz();
 console.log(avgClockMHz);
 ```
 
-Get the clock MHz for core with index 2
+Get the clock MHz for core with index 2:
 ```
 var avgClockMHzCore2 = cpuStat.clockMHz(2);
 console.log(avgClockMHzCore2);
@@ -91,7 +92,7 @@ Provides a callback `cb(err, percent, seconds)` giving the `percent` cpu usage a
 Option               | Type         | Default            | Explanation
 -------------------- | -------------| ------------------ | ------------
 opts                 | `Object`     | see below          | Options object, specify what you need the defaults will be filled in
-opts.coreIndex       | `Number`     | all cores          | The index of the core to calculate the usage on. Can use any `coreIndex` such that `0 >= coreIndex < memStat.totalCores()`
+opts.coreIndex       | `Number`     | all cores          | The index of the core to calculate the usage on. Can use any integer `coreIndex` such that `0 >= coreIndex < memStat.totalCores()`
 opts.sampleMs        | `String`     | `1000`             | `sampleMs` is the amount of time to take the measurement over
 cb                   | `Function`   | none               | Callback which has signature `cb(err, percent, seconds)`
 
@@ -104,6 +105,10 @@ clockMHz(coreIndex)
 -------------------
 
 Returns the clock speed in MHz of core with index `coreIndex`
+
+Option               | Type         | Default            | Explanation
+-------------------- | -------------| ------------------ | ------------
+coreIndex            | `Number`     | none               | The index of the core to calculate the usage on. Can use any integer `coreIndex` such that `0 >= coreIndex < memStat.totalCores()`
 
 avgClockMHz()
 -------------
