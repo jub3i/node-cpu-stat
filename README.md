@@ -31,8 +31,8 @@ Example
 var cpuStat = require('cpu-stat');
 ```
 
+By default returns cpu usage percent for all cores over a period of the next 1000ms
 ```
-//by default returns cpu usage percent for all cores over a period of the next 1000ms
 cpuStat.usagePercent(function(err, percent, seconds) {
     if (err) {
       return console.log(err);
@@ -46,8 +46,8 @@ cpuStat.usagePercent(function(err, percent, seconds) {
 });
 ```
 
+Get the cpu usage percent for core 0 over a sample period of 2000ms
 ```
-//get the cpu usage percent for core 0 over a sample period of 2000ms
 cpuStat.usagePercent({
     coreIndex: 0,
     sampleMs: 2000,
@@ -65,20 +65,20 @@ cpuStat.usagePercent({
 });
 ```
 
+Get the total number of cores
 ```
-//get the total number of cores
 var totalCores = cpuStat.totalCores();
 console.log(totalCores);
 ```
 
+Get the average clock MHz over all cores
 ```
-//get the average clock MHz over all cores
 var avgClockMHz = cpuStat.avgClockMHz();
 console.log(avgClockMHz);
 ```
 
+Get the clock MHz for core with index 2
 ```
-//get the clock MHz for core with index 2
 var avgClockMHzCore2 = cpuStat.clockMHz(2);
 console.log(avgClockMHzCore2);
 ```
