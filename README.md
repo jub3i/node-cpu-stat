@@ -65,7 +65,7 @@ Option               | Type         | Default            | Explanation
 opts                 | `Object`     | see below          | Options object, specify what you need the defaults will be filled in
 opts.coreIndex       | `Number`     | all cores          | The index of the core to calculate the usage on. Can use any `coreIndex` such that `0 >= coreIndex < memStat.totalCores()`
 opts.sampleMs        | `String`     | `1000`             | `sampleMs` is the amount of time to take the measurement over
-cb                   | `Function`   | none               | callback which has signature `cb(percent)`
+cb                   | `Function`   | none               | Callback which has signature `cb(percent)`
 
 totalCores()
 ------------

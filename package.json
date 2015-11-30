@@ -1,6 +1,6 @@
 {
   "name": "cpu-stat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CPU Statistics not provided by `os` module",
   "main": "index.js",
   "scripts": {
