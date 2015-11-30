@@ -29,7 +29,6 @@ Example
 
 ```
 var cpuStat = require('cpu-stat');
-
 ```
 
 ```
