@@ -129,7 +129,7 @@ Other Stat Modules
 - disk-stat [npm](https://www.npmjs.com/package/disk-stat) [git](https://github.com/jub3i/node-disk-stat)
 - mem-stat [npm](https://www.npmjs.com/package/mem-stat) [git](https://github.com/jub3i/node-mem-stat)
 
-**Note:** net-stat, disk-stat, mem-stat only work on nix platforms.
+**Note:** `net-stat`, `disk-stat`, `mem-stat` only work on nix platforms.
 
 License
 -------
