@@ -30,8 +30,12 @@ Example
 ```
 var cpuStat = require('cpu-stat');
 
-//by default returns cpu usage over all cores over a period of the next 1000ms
-cpuStat.usagePercent(function(percent, seconds) {
+//by default returns cpu usage percent for all cores over a period of the next 1000ms
+cpuStat.usagePercent(function(err, percent, seconds) {
+    if (err) {
+      return console.log(err);
+    }
+
     //the percentage cpu usage over all cores
     console.log(percent);
 
@@ -39,12 +43,16 @@ cpuStat.usagePercent(function(percent, seconds) {
     console.log(seconds);
 });
 
-//get the average cpu usage percent for core 0 over a sample period of 2000ms
+//get the cpu usage percent for core 0 over a sample period of 2000ms
 cpuStat.usagePercent({
     coreIndex: 0,
     sampleMs: 2000,
   },
-  function(percent, seconds) {
+  function(err, percent, seconds) {
+    if (err) {
+      return console.log(err);
+    }
+
     //the percentage cpu usage for core 0
     console.log(percent);
 
@@ -56,26 +64,26 @@ cpuStat.usagePercent({
 var totalCores = cpuStat.totalCores();
 console.log(totalCores);
 
-//get the average clock Mhz over all cores
-var avgClockMhz = cpuStat.avgClockMhz();
-console.log(avgClockMhz);
+//get the average clock MHz over all cores
+var avgClockMHz = cpuStat.avgClockMHz();
+console.log(avgClockMHz);
 
-//get the average clock Mhz for core with index 2
-var avgClockMhzCore2 = cpuStat.clockMhz(2);
-console.log(avgClockMhzCore2);
+//get the clock MHz for core with index 2
+var avgClockMHzCore2 = cpuStat.clockMHz(2);
+console.log(avgClockMHzCore2);
 ```
 
 usagePercent(opts, cb)
 ----------------------
 
-Provides a callback `cb(percent, seconds)` giving the `percent` cpu usage and `seconds` the length of the sample time
+Provides a callback `cb(err, percent, seconds)` giving the `percent` cpu usage and `seconds` the length of the sample time, or an error `err`
 
 Option               | Type         | Default            | Explanation
 -------------------- | -------------| ------------------ | ------------
 opts                 | `Object`     | see below          | Options object, specify what you need the defaults will be filled in
 opts.coreIndex       | `Number`     | all cores          | The index of the core to calculate the usage on. Can use any `coreIndex` such that `0 >= coreIndex < memStat.totalCores()`
 opts.sampleMs        | `String`     | `1000`             | `sampleMs` is the amount of time to take the measurement over
-cb                   | `Function`   | none               | Callback which has signature `cb(percent, seconds)`
+cb                   | `Function`   | none               | Callback which has signature `cb(err, percent, seconds)`
 
 totalCores()
 ------------
@@ -85,12 +93,12 @@ Returns the total number of cores available on the cpu
 clockMHz(coreIndex)
 -------------------
 
-Returns the clock speed in Mhz of core with index `coreIndex`
+Returns the clock speed in MHz of core with index `coreIndex`
 
-avgClockMhz()
+avgClockMHz()
 -------------
 
-Returns the average clock speed in Mhz over all cores
+Returns the average clock speed in MHz over all cores
 
 Contributing
 ------------
@@ -106,12 +114,12 @@ Other Stat Modules
 ------------------
 
 
-- cpu-stat on [npm](https://www.npmjs.com/package/cpu-stat) and [git](https://github.com/jub3i/node-cpu-stat)
-- net-stat on [npm](https://www.npmjs.com/package/net-stat) and [git](https://github.com/jub3i/node-net-stat)
-- disk-stat on [npm](https://www.npmjs.com/package/disk-stat) and [git](https://github.com/jub3i/node-disk-stat)
-- mem-stat on [npm](https://www.npmjs.com/package/mem-stat) and [git](https://github.com/jub3i/node-mem-stat)
+- cpu-stat [npm](https://www.npmjs.com/package/cpu-stat) [git](https://github.com/jub3i/node-cpu-stat)
+- net-stat [npm](https://www.npmjs.com/package/net-stat) [git](https://github.com/jub3i/node-net-stat)
+- disk-stat [npm](https://www.npmjs.com/package/disk-stat) [git](https://github.com/jub3i/node-disk-stat)
+- mem-stat [npm](https://www.npmjs.com/package/mem-stat) [git](https://github.com/jub3i/node-mem-stat)
 
-**Note:** net-stat, disk-stat, mem-stat only work on nix platforms with a `/proc` file system.
+**Note:** net-stat, disk-stat, mem-stat only work on nix platforms.
 
 License
 -------
