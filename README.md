@@ -13,6 +13,8 @@ cpu-stat
 
 **Note:** This repo can be found on npm here: [cpu-stat](https://www.npmjs.com/package/cpu-stat)
 
+**Note:** This repo can be found on github here: [node-cpu-stat](https://github.com/jub3i/node-cpu-stat)
+
 **Note:** This module only relies on the `os` module, so it should be compatible on all OS's where Node.js runs.
 
 Install
@@ -104,10 +106,10 @@ Other Stat Modules
 ------------------
 
 
-- cpu-stat [(npm)](https://www.npmjs.com/package/cpu-stat) [(git)](https://github.com/jub3i/node-cpu-stat)
-- net-stat [(npm)](https://www.npmjs.com/package/net-stat) [(git)](https://github.com/jub3i/node-net-stat)
-- disk-stat [(npm)](https://www.npmjs.com/package/disk-stat) [(git)](https://github.com/jub3i/node-disk-stat)
-- mem-stat [(npm)](https://www.npmjs.com/package/mem-stat) [(git)](https://github.com/jub3i/node-mem-stat)
+- cpu-stat on [npm](https://www.npmjs.com/package/cpu-stat) and [git](https://github.com/jub3i/node-cpu-stat)
+- net-stat on [npm](https://www.npmjs.com/package/net-stat) and [git](https://github.com/jub3i/node-net-stat)
+- disk-stat on [npm](https://www.npmjs.com/package/disk-stat) and [git](https://github.com/jub3i/node-disk-stat)
+- mem-stat on [npm](https://www.npmjs.com/package/mem-stat) and [git](https://github.com/jub3i/node-mem-stat)
 
 **Note:** net-stat, disk-stat, mem-stat only work on nix platforms with a `/proc` file system.
 
