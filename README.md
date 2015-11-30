@@ -32,7 +32,7 @@ Require the module:
 var cpuStat = require('cpu-stat');
 ```
 
-By default `usagePercent` returns cpu usage percent for all cores over a period of the next 1000ms:
+By default `usagePercent()` returns cpu usage percent for all cores over a period of the next 1000ms:
 ```
 cpuStat.usagePercent(function(err, percent, seconds) {
     if (err) {
