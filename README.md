@@ -84,7 +84,7 @@ var avgClockMHzCore2 = cpuStat.clockMHz(2);
 console.log(avgClockMHzCore2);
 ```
 
-usagePercent(opts, cb)
+usagePercent([opts,] cb)
 ----------------------
 
 Provides a callback `cb(err, percent, seconds)` giving the `percent` cpu usage and `seconds` the length of the sample time, or an error `err`
