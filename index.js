@@ -40,7 +40,8 @@ function usagePercent(opts, cb) {
   //check core exists
   if (opts.coreIndex < -1 ||
       opts.coreIndex >= cpus.length ||
-      typeof opts.coreIndex !== 'number'
+      typeof opts.coreIndex !== 'number' ||
+      Math.abs(opts.coreIndex % 1) !== 0
   ) {
     _error(opts.coreIndex, cpus.length);
     return cb('coreIndex "' + opts.coreIndex + '" out of bounds, ' +
@@ -126,7 +127,11 @@ function clockMHz(coreIndex) {
   var cpus = os.cpus();
 
   //check core exists
-  if (coreIndex < 0 || coreIndex >= cpus.length || typeof coreIndex !== 'number') {
+  if (coreIndex < 0 ||
+      coreIndex >= cpus.length ||
+      typeof coreIndex !== 'number' ||
+      Math.abs(coreIndex % 1) !== 0
+  ) {
     _error(coreIndex, cpus.length);
     return 'coreIndex "' + coreIndex + '" out of bounds, ' +
       'should be [0, ' + (cpus.length - 1) + ']';
@@ -156,7 +161,3 @@ function _error(coreIndex, cores) {
     'since your system has a total of ' + cores + ' cores.';
   console.log(errMsg);
 }
-
-usagePercent(function(err, percent) {
-  console.log(percent);
-});
