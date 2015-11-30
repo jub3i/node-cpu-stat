@@ -38,7 +38,7 @@ function usagePercent(opts, cb) {
   }
 
   //check core exists
-  if (opts.coreIndex <= -1 ||
+  if (opts.coreIndex < -1 ||
       opts.coreIndex >= cpus.length ||
       typeof opts.coreIndex !== 'number'
   ) {
@@ -156,3 +156,7 @@ function _error(coreIndex, cores) {
     'since your system has a total of ' + cores + ' cores.';
   console.log(errMsg);
 }
+
+usagePercent(function(err, percent) {
+  console.log(percent);
+});
