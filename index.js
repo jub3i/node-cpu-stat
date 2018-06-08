@@ -16,6 +16,14 @@ function usagePercent(opts, cb) {
   var timeUsed0 = 0;
   var timeUsed1 = 0;
 
+  var userTime = 0;
+  var userTime0 = 0;
+  var userTime1 = 0;
+
+  var systemTime = 0;
+  var systemTime0 = 0;
+  var systemTime1 = 0;
+
   var timeIdle;
   var timeIdle0 = 0;
   var timeIdle1 = 0;
@@ -64,24 +72,32 @@ function usagePercent(opts, cb) {
       //do the number crunching below and return
       for (var i = 0; i < cpu1.length; i++) {
         timeUsed1 += cpu1[i].times.user;
+        userTime1 += cpu1[i].times.user;
         timeUsed1 += cpu1[i].times.nice;
         timeUsed1 += cpu1[i].times.sys;
+        systemTime1 += cpu1[i].times.sys;
         timeIdle1 += cpu1[i].times.idle;
       }
 
       for (i = 0; i < cpu0.length; i++) {
         timeUsed0 += cpu0[i].times.user;
+        userTime0 += cpu0[i].times.user;
         timeUsed0 += cpu0[i].times.nice;
         timeUsed0 += cpu0[i].times.sys;
+        systemTime0 += cpu0[i].times.sys;
         timeIdle0 += cpu0[i].times.idle;
       }
 
       timeUsed = timeUsed1 - timeUsed0;
+      userTime = userTime1 - userTime0;
+      systemTime = systemTime1 - systemTime0;
       timeIdle = timeIdle1 - timeIdle0;
 
       var percent = (timeUsed / (timeUsed + timeIdle)) * 100;
+      var userTimePercent = (userTime / (timeUsed + timeIdle)) * 100;
+      var systemTimePercent = (systemTime / (timeUsed + timeIdle)) * 100;
 
-      return cb(null, percent, diffSeconds);
+      return cb(null, percent, diffSeconds, userTimePercent, systemTimePercent);
     }, opts.sampleMs);
 
   //only one cpu core
@@ -99,21 +115,29 @@ function usagePercent(opts, cb) {
 
       //do the number crunching below and return
       timeUsed1 += cpu1[opts.coreIndex].times.user;
+      userTime1 += cpu1[opts.coreIndex].times.user;
       timeUsed1 += cpu1[opts.coreIndex].times.nice;
       timeUsed1 += cpu1[opts.coreIndex].times.sys;
+      systemTime1 += cpu1[opts.coreIndex].times.sys;
       timeIdle1 += cpu1[opts.coreIndex].times.idle;
 
       timeUsed0 += cpu0[opts.coreIndex].times.user;
+      userTime0 += cpu0[opts.coreIndex].times.user;
       timeUsed0 += cpu0[opts.coreIndex].times.nice;
       timeUsed0 += cpu0[opts.coreIndex].times.sys;
+      systemTime0 += cpu0[opts.coreIndex].times.sys;
       timeIdle0 += cpu0[opts.coreIndex].times.idle;
 
       var timeUsed = timeUsed1 - timeUsed0;
+      var userTime = userTime1 - userTime0;
+      var systemTime = systemTime1 - systemTime0;
       var timeIdle = timeIdle1 - timeIdle0;
 
       var percent = (timeUsed / (timeUsed + timeIdle)) * 100;
+      var userTimePercent = (userTime / (timeUsed + timeIdle)) * 100;
+      var systemTimePercent = (systemTime / (timeUsed + timeIdle)) * 100;
 
-      return cb(null, percent, diffSeconds);
+      return cb(null, percent, diffSeconds, userTimePercent, systemTimePercent);
     }, opts.sampleMs);
 
   }
